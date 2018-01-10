@@ -1,0 +1,76 @@
+{
+  "name": "mysam",
+  "description": "An open \"intelligent\" assistant for the browser and NodeJS that can listen to you and learn.",
+  "version": "0.2.0-pre.1",
+  "homepage": "https://mysamai.com",
+  "main": "lib/",
+  "keywords": [
+    "mysam"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mysamai/mysam.git"
+  },
+  "author": {
+    "name": "David Luecke",
+    "email": "daff@neyeon.com",
+    "url": "https://mysamai.com"
+  },
+  "contributors": [],
+  "bugs": {
+    "url": "https://github.com/mysamai/mysam/issues"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "scripts": {
+    "publish": "git push origin --tags && npm run changelog && git push origin",
+    "release:pre": "npm run add-dist && npm version prerelease && npm publish --tag pre",
+    "release:patch": "npm run add-dist && npm version patch && npm publish",
+    "release:minor": "npm run add-dist && npm version minor && npm publish",
+    "release:major": "npm run add-dist && npm version major && npm publish",
+    "changelog": "github_changelog_generator && git add CHANGELOG.md && git commit -am \"Updating changelog\"",
+    "lint": "semistandard --fix",
+    "mocha": "mocha --opts mocha.opts",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- --opts mocha.opts",
+    "build": "npm run clean && npm run build:dev && npm run build:prod",
+    "build:dev": "node build",
+    "build:prod": "NODE_ENV=production node build",
+    "test": "npm run coverage",
+    "clean": "shx rm -rf dist/ && shx mkdir -p dist",
+    "add-dist": "npm run build && git add dist/ --force && git commit -am \"Updating dist\""
+  },
+  "semistandard": {
+    "sourceType": "module",
+    "env": [
+      "mocha"
+    ]
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "blueimp-md5": "^2.8.0",
+    "feathers": "^3.0.0-pre.1",
+    "feathers-localstorage": "^2.0.0",
+    "feathers-memory": "^1.2.1",
+    "lodash": "^4.17.4",
+    "natural": "^0.5.4",
+    "natural-brain": "^0.2.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^14.4.0",
+    "chai": "^4.1.2",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "^4.0.0",
+    "node-localstorage": "^1.3.0",
+    "semistandard": "^11.0.0",
+    "shx": "^0.2.2",
+    "uglify-js": "^3.0.27",
+    "uglifyify": "^4.0.3"
+  }
+}
